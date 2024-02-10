@@ -1,15 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useLoopImage(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callback: (...args: any[]) => any,
   speed: number
 ) {
-  const currentTimeRef = useRef<DOMHighResTimeStamp>(0); // ! initial value "0" then typescript infer the type ref can't be change!!
+  // const currentTimeRef = useRef<DOMHighResTimeStamp>(0); // ! initial value "0" then typescript infer the type ref can't be change!!
   const previousTimeRef = useRef<DOMHighResTimeStamp>(0);
+  const requestAnimationFrameId = useRef<number>(0);
 
   const loopImages = (currentTime: DOMHighResTimeStamp) => {
-    if (currentTimeRef.current) {
+    if (requestAnimationFrameId.current) {
       const deltaTime = currentTime - previousTimeRef.current;
 
       // * speed가 200이면 1초에 200번 실행
@@ -19,12 +20,16 @@ export default function useLoopImage(
       }
     }
 
-    currentTimeRef.current = requestAnimationFrame(loopImages);
+    requestAnimationFrameId.current = requestAnimationFrame(loopImages);
   };
 
-  useEffect(() => {
-    const timestamp = requestAnimationFrame(loopImages);
+  const stop = () => cancelAnimationFrame(requestAnimationFrameId.current);
 
-    return () => cancelAnimationFrame(timestamp);
+  useEffect(() => {
+    requestAnimationFrameId.current = requestAnimationFrame(loopImages);
+
+    return () => cancelAnimationFrame(requestAnimationFrameId.current);
   }, []);
+
+  return { stop };
 }
