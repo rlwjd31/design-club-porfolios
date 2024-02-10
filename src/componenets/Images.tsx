@@ -1,13 +1,11 @@
-import { useState } from "react";
-import useLoopImage from "../hooks/useLoopImage";
-import useMouseFollow from "../hooks/useMouseFollow";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
-import image1 from "/assets/images/image1.jpg";
-import image2 from "/assets/images/image2.jpg";
-import image3 from "/assets/images/image3.jpg";
-import image4 from "/assets/images/image4.jpg";
-import image5 from "/assets/images/image5.jpg";
+import useMouseFollow from "../hooks/useMouseFollow";
+import useLoopImage from "../hooks/useLoopImage";
+
+import { ModalContext } from "../App";
+import imagePaths from "../constants/images";
 
 const ImageContainer = styled.div`
   display: flex;
@@ -47,16 +45,15 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
 
 const intervalTime = 500;
 const mouseFollowerOffset = { x: 15, y: 15 };
-const images: string[] = [image1, image2, image3, image4, image5];
 
 function Images() {
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [isMouseInImage, setIsMouseInImage] = useState<boolean>(false);
-
   const { x: mousePosX, y: mousePosY } = useMouseFollow();
+  const { modalOpen, selectImage } = useContext(ModalContext);
 
   const { stop } = useLoopImage(
-    () => setCurrentImage((prev) => (prev + 1) % images.length),
+    () => setCurrentImage((prev) => (prev + 1) % imagePaths.length),
     intervalTime
   );
   return (
@@ -65,7 +62,14 @@ function Images() {
         onMouseEnter={() => setIsMouseInImage(true)}
         onMouseLeave={() => setIsMouseInImage(false)}
       >
-        <Image onClick={() => stop()} src={images[currentImage]} />
+        <Image
+          onClick={() => {
+            stop();
+            modalOpen();
+            selectImage(imagePaths[currentImage])
+          }}
+          src={imagePaths[currentImage]}
+        />
       </ImageContainer>
       {isMouseInImage && (
         <MouseFollower
