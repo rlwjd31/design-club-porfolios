@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Images from "../componenets/Images";
+import { commonStyle } from "../styles/GlobalStyle";
 
 const H1 = styled.h1`
   display: flex;
   justify-content: center;
   font-family: "Neue Haas Grotesk Display Pro";
-  font-size: 6.563rem;
+  font-size: ${commonStyle.fontSize.xxl};
   font-weight: 600;
   width: 100%;
 

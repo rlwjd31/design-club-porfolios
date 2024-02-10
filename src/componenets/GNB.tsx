@@ -4,7 +4,7 @@ import { commonStyle } from "../styles/GlobalStyle";
 const MainPageHeader = styled.header`
   position: absolute;
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: ${commonStyle.fontSize.x};
   z-index: 1;
 
   &:lang(en) {
