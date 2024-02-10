@@ -43,7 +43,7 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
   }
 `;
 
-const intervalTime = 50;
+const intervalTime = 100;
 const mouseFollowerOffset = { x: 15, y: 15 };
 
 function Images() {
