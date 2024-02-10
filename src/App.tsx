@@ -30,6 +30,7 @@ export const ModalContext = createContext<ModalContextType>({
   modalClose: () => {},
   modalOpen: () => {},
   imagePath: "",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   selectImage: (imagePath: string) => "",
 });
 

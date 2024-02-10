@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function useLoopImage(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
