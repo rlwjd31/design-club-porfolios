@@ -15,6 +15,10 @@ const H1 = styled.h1`
   font-size: 4.625rem;
   font-weight: 600;
   width: 100%;
+
+  &:lang(en) {
+    font-family: "Neue Haas Grotesk Display Pro";
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -48,6 +52,9 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
   font-weight: 900;
   pointer-events: none;
   transition: all 0.2s ease-out;
+  &:lang(en) {
+    font-family: "Neue Haas Grotesk Display Pro";
+  }
 `;
 
 const intervalTime = 500;
@@ -66,7 +73,7 @@ export default function Home() {
 
   return (
     <>
-      <H1>CLICK YOUR FORTUNE!</H1>
+      <H1 lang="en">CLICK YOUR FORTUNE!</H1>
       <ImageContainer>
         <Image
           onMouseEnter={() => setIsMouseInImage(true)}
@@ -76,6 +83,7 @@ export default function Home() {
       </ImageContainer>
       {isMouseInImage && (
         <MouseFollower
+          lang="en"
           mousePosX={`${mousePosX + mouseFollowerOffset.x}px`}
           mousePosY={`${mousePosY + mouseFollowerOffset.y}px`}
         >

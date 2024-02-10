@@ -6,11 +6,17 @@ const MainPageHeader = styled.header`
   font-weight: 600;
   font-size: 2.5rem;
   z-index: 1;
+
+  &:lang(en) {
+    font-family: "Neue Haas Grotesk Display Pro";
+  }
 `;
 
 const InfoHeader = styled(MainPageHeader)`
   top: ${commonStyle.padding.main};
   left: ${commonStyle.padding.main};
+  border-bottom: 4px solid black;
+  padding-bottom: 5px;
 `;
 
 const FortunePageHeader = styled(MainPageHeader)`
@@ -21,8 +27,8 @@ const FortunePageHeader = styled(MainPageHeader)`
 export default function GNB() {
   return (
     <>
-      <InfoHeader>Info</InfoHeader>
-      <FortunePageHeader>FORTUNE EGG</FortunePageHeader>
+      <InfoHeader lang="en">Info</InfoHeader>
+      <FortunePageHeader lang="en">FORTUNE EGG</FortunePageHeader>
     </>
   );
 }
