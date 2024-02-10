@@ -43,7 +43,7 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
   }
 `;
 
-const intervalTime = 500;
+const intervalTime = 100;
 const mouseFollowerOffset = { x: 15, y: 15 };
 
 function Images() {
@@ -66,7 +66,7 @@ function Images() {
           onClick={() => {
             stop();
             modalOpen();
-            selectImage(imagePaths[currentImage])
+            selectImage(imagePaths[currentImage]);
           }}
           src={imagePaths[currentImage]}
         />
