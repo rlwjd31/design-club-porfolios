@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { BaseReactPlayerProps } from "react-player/base";
 import ReactPlayer from "react-player";
 
 import image340 from "/assets/images/detail340.png";

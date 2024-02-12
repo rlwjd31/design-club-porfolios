@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 
+import React from "react";
 import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
 import { useContext, useRef } from "react";
@@ -8,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import ChevronRight from "../../public/assets/icons/chevron-right.svg?react";
+import { useNavigate } from "react-router-dom";
 
 const ModalContainer = styled.div`
   position: absolute;
@@ -51,6 +53,7 @@ const Button = styled.button`
   padding: 0.75rem 6.75rem;
   font-size: ${commonStyle.fontSize.m};
   border-radius: 30px;
+  cursor: pointer;
 `;
 
 const Span = styled.span`
@@ -73,7 +76,8 @@ const ChevronRightIcon = styled(ChevronRight)`
 export default function Modal() {
   const { imagePath } = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
+  const { modalClose } = useContext(ModalContext);
   useGSAP(
     () => {
       gsap.fromTo(
@@ -85,12 +89,17 @@ export default function Modal() {
     { scope: modalRef }
   );
 
+  const showFortunePage = () => {
+    navigate("/fortune/asdf");
+    modalClose();
+  };
+
   return (
     <ModalContainer ref={modalRef}>
       <Card>
         <Paragraph>알을 선택하셨습니다!</Paragraph>
         <Image src={imagePath} />
-        <Button>
+        <Button onClick={showFortunePage}>
           결과 확인하러 가기
           <ChevronRightIcon />
         </Button>
