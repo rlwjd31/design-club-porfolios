@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
 import { useLocation, useParams } from "react-router-dom";
+import GnbNav from "./GnbNav";
 
-import ChevronLeft from "/assets/icons/chevron-left-solid.svg";
-import ChevronRight from "/assets/icons/chevron-left-solid.svg";
-
-console.log(ChevronLeft);
 const MainPageHeader = styled.header`
   position: absolute;
   font-weight: 600;
@@ -35,7 +32,7 @@ export default function GNB() {
   const { pathname } = useLocation();
 
   if (pathname !== "/") {
-    return <h1>fortuen Detail Page</h1>;
+    return <GnbNav />;
   }
 
   return (

@@ -1,9 +1,13 @@
+/// <reference types="vite-plugin-svgr/client" />
+
 import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
 import { useContext, useRef } from "react";
 import { ModalContext } from "../App";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+
+import ChevronRight from "../../public/assets/icons/chevron-right.svg?react";
 
 const ModalContainer = styled.div`
   position: absolute;
@@ -53,8 +57,17 @@ const Span = styled.span`
   position: absolute;
   top: 50%;
   right: 1.5rem;
-  font-size: ${commonStyle.fontSize.x};
+  font-size: ${commonStyle.fontSize.s};
   transform: translateY(-50%);
+`;
+
+const ChevronRightIcon = styled(ChevronRight)`
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
 `;
 
 export default function Modal() {
@@ -78,7 +91,8 @@ export default function Modal() {
         <Paragraph>알을 선택하셨습니다!</Paragraph>
         <Image src={imagePath} />
         <Button>
-          결과 확인하러 가기<Span>&gt;</Span>
+          결과 확인하러 가기
+          <ChevronRightIcon />
         </Button>
       </Card>
     </ModalContainer>

@@ -8,7 +8,7 @@ export const commonStyle = {
   fontSize: {
     xxxl: "6rem", // * 96px
     xxl: "4.625rem", // * 74px
-    xl: "4.rem", // * 64px
+    xl: "4rem", // * 64px
     x: "2.5rem", // * 40px
     l: "2.25rem", // * 36px
     m: "2rem", // * 32px
@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     border: 0;
+    padding: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
