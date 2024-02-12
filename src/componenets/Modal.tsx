@@ -66,7 +66,7 @@ export default function Modal() {
       gsap.fromTo(
         modalRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 1.5 }
+        { opacity: 1, duration: 0.8 }
       );
     },
     { scope: modalRef }
