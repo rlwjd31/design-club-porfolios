@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import styled from "styled-components";
+import { commonStyle } from "../styles/GlobalStyle";
 
 type Props = {
   stopPreloading: () => void;
@@ -18,12 +19,22 @@ const PreloadingContainer = styled.section`
   z-index: 200;
 `;
 
-const squareCount = 8;
+const squareCount = 11;
 
 const Square = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: calc(100% / ${squareCount});
   background-color: black;
 `;
+
+const Span = styled.span`
+  color: white;
+  font-size: ${commonStyle.fontSize.xxl};
+`;
+
+const loadingText = "Loading";
 
 export default function PreLoading({ stopPreloading }: Props) {
   const containerRef = useRef<HTMLElement>(null);
@@ -57,7 +68,9 @@ export default function PreLoading({ stopPreloading }: Props) {
       {Array(squareCount)
         .fill(null)
         .map((_, index) => (
-          <Square className="square" key={index} />
+          <Square className="square" key={index}>
+            <Span>{index >= 2 ? loadingText[index - 2] ?? "" : ""}</Span>
+          </Square>
         ))}
     </PreloadingContainer>
   );
