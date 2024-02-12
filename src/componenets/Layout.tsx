@@ -1,9 +1,10 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 import styled from "styled-components";
 import GNB from "./GNB";
 import { commonStyle } from "../styles/GlobalStyle";
 import Modal from "../componenets/Modal";
 import { ModalContext } from "../App";
+import PreLoading from "./PreLoading";
 
 type Props = {
   children: ReactNode;
@@ -20,11 +21,23 @@ const Main = styled.main`
 `;
 
 export default function Layout({ children }: Props) {
+  const [isPreloading, setIsPreloading] = useState<boolean>(true);
   const { isOpen } = useContext(ModalContext);
+
+  console.log("isPreloading", isPreloading);
+
+  const stopPreloading = () => setIsPreloading(false);
+
   return (
     <>
-      <GNB />
-      <Main>{children}</Main>
+      {isPreloading ? (
+        <PreLoading stopPreloading={stopPreloading} />
+      ) : (
+        <>
+          <GNB />
+          <Main>{children}</Main>
+        </>
+      )}
       {isOpen && <Modal />}
     </>
   );

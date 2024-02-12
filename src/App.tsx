@@ -41,7 +41,6 @@ export const ModalContextProvider: FC<Props> = ({ children }) => {
   const modalClose = () => setIsOpen(false);
   const selectImage = (imagePath: string) => setImagePath(imagePath);
 
-  console.log("isOpen in context", isOpen);
   return (
     <ModalContext.Provider
       value={{ isOpen, modalOpen, modalClose, imagePath, selectImage }}
