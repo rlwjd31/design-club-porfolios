@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ModalContext } from "../App";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const ModalContainer = styled.div`
   position: absolute;
@@ -57,8 +59,21 @@ const Span = styled.span`
 
 export default function Modal() {
   const { imagePath } = useContext(ModalContext);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5 }
+      );
+    },
+    { scope: modalRef }
+  );
+
   return (
-    <ModalContainer>
+    <ModalContainer ref={modalRef}>
       <Card>
         <Paragraph>알을 선택하셨습니다!</Paragraph>
         <Image src={imagePath} />

@@ -14,7 +14,7 @@ const PreloadingContainer = styled.section`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
   z-index: 200;
 `;
 
@@ -37,7 +37,6 @@ export default function PreLoading({ stopPreloading }: Props) {
       });
 
       if (containerRef.current) {
-        containerRef.current.querySelectorAll(".square");
         tl.to(".square", {
           yPercent: "-100",
           duration: 1,
