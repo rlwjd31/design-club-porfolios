@@ -48,16 +48,24 @@ export default function PreLoading({ stopPreloading }: Props) {
       });
 
       if (containerRef.current) {
-        tl.to(".square", {
-          yPercent: "-100",
+        tl.from(".swing", {
+          y: "-10rem",
+          opacity: 0,
           duration: 1,
-          ease: "power3.inOut",
+          ease: "bounce.out",
           stagger: 0.2,
-        }).to(containerRef.current, {
-          yPercent: "-100",
-          duration: 0.8,
-          ease: "power3.inOut",
-        });
+        })
+          .to(".square", {
+            yPercent: "-100",
+            duration: 0.8,
+            ease: "power3.inOut",
+            stagger: 0.2,
+          })
+          .to(containerRef.current, {
+            yPercent: "-100",
+            duration: 0.8,
+            ease: "power3.inOut",
+          });
       }
     },
     { scope: containerRef }
@@ -69,7 +77,9 @@ export default function PreLoading({ stopPreloading }: Props) {
         .fill(null)
         .map((_, index) => (
           <Square className="square" key={index}>
-            <Span>{index >= 2 ? loadingText[index - 2] ?? "" : ""}</Span>
+            <Span className="swing">
+              {index >= 2 ? loadingText[index - 2] ?? "" : ""}
+            </Span>
           </Square>
         ))}
     </PreloadingContainer>

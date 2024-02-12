@@ -24,7 +24,6 @@ export default function Layout({ children }: Props) {
   const [isPreloading, setIsPreloading] = useState<boolean>(true);
   const { isOpen } = useContext(ModalContext);
 
-  console.log("isPreloading", isPreloading);
 
   const stopPreloading = () => setIsPreloading(false);
 
