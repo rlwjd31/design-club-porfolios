@@ -9,9 +9,12 @@ import imagePaths from "../constants/images";
 
 const ImageContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 68.75rem;
-  margin-top: 5.625rem;
+  height: 100%;
+  transform: translateY(-4rem);
 `;
 
 const Image = styled.img`
@@ -58,18 +61,20 @@ function Images() {
   );
   return (
     <>
-      <ImageContainer
-        onMouseEnter={() => setIsMouseInImage(true)}
-        onMouseLeave={() => setIsMouseInImage(false)}
-      >
-        <Image
-          onClick={() => {
-            stop();
-            modalOpen();
-            selectImage(imagePaths[currentImage]);
-          }}
-          src={imagePaths[currentImage]}
-        />
+      <ImageContainer>
+        <div
+          onMouseEnter={() => setIsMouseInImage(true)}
+          onMouseLeave={() => setIsMouseInImage(false)}
+        >
+          <Image
+            onClick={() => {
+              stop();
+              modalOpen();
+              selectImage(imagePaths[currentImage]);
+            }}
+            src={imagePaths[currentImage]}
+          />
+        </div>
       </ImageContainer>
       {isMouseInImage && (
         <MouseFollower

@@ -15,8 +15,10 @@ const Main = styled.main`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  padding: ${commonStyle.padding.main} 160px;
+  width: 100vw;
+  height: 100vh;
+  padding-top: ${commonStyle.padding.main};
+  /* 160px; */
   position: relative;
 `;
 
@@ -28,32 +30,10 @@ export default function Layout({ children }: Props) {
 
   return (
     <>
-      {/* <PreLoading stopPreloading={stopPreloading} /> */}
-      {/* {isPreloading ? (
-        <PreLoading stopPreloading={stopPreloading} />
-      ) : (
-        <>
-          <GNB />
-          <Main>{children}</Main>
-        </>
-      )}
-      {isOpen && <Modal />} */}
-
-      <>
-        {isPreloading && <PreLoading stopPreloading={stopPreloading} />}
-        <GNB />
-        <Main>{children}</Main>
-        {isOpen && <Modal />}
-      </>
+      {/* {isPreloading && <PreLoading stopPreloading={stopPreloading} />} */}
+      <GNB />
+      <Main>{children}</Main>
+      {isOpen && <Modal />}
     </>
   );
-}
-
-{
-  /* <PreLoading stopPreloading={stopPreloading} />
-      <>
-        <GNB />
-        <Main>{children}</Main>
-        {isOpen && <Modal />}
-      </> */
 }
