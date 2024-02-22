@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useState } from "react";
 import styled from "styled-components";
 import GNB from "./GNB";
 import { commonStyle } from "../styles/GlobalStyle";
@@ -16,7 +16,6 @@ const Main = styled.main`
   width: 100vw;
   height: 100vh;
   padding-top: ${commonStyle.padding.main};
-  /* 160px; */
   position: relative;
 `;
 

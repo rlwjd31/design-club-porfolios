@@ -10,27 +10,22 @@ const Container = styled.nav`
   top: 0;
   left: 0;
   padding: ${commonStyle.padding.main};
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
   z-index: 100;
-  background-color: white;
 `;
 
-const ChevronLeftIcon = styled(ChevronLeft)`
-  width: 3rem;
-  height: 3rem;
-  transform: translateY(-0.2rem);
-`;
-
-const Span = styled.span`
+const HomeButton = styled(Link)`
   font-size: ${commonStyle.fontSize.x};
   text-transform: uppercase;
-  vertical-align: middle;
+  text-decoration: none;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
+  }
+
+  &:link,
+  &:visited {
+    color: inherit;
   }
 `;
 
@@ -46,12 +41,8 @@ const BackNav = styled(Link)`
 
 export default function GnbNav() {
   return (
-    <Container>
-      <BackNav to="/" lang="en">
-        <ChevronLeftIcon />
-        <Span>back</Span>
-      </BackNav>
-      <Span lang="en">FORTUNE EGG</Span>
+    <Container lang="en">
+      <HomeButton to="/">FORTUNE EGG</HomeButton>
     </Container>
   );
 }
