@@ -29,7 +29,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       {/* <PreLoading stopPreloading={stopPreloading} /> */}
-      {isPreloading ? (
+      {/* {isPreloading ? (
         <PreLoading stopPreloading={stopPreloading} />
       ) : (
         <>
@@ -37,13 +37,23 @@ export default function Layout({ children }: Props) {
           <Main>{children}</Main>
         </>
       )}
-      {isOpen && <Modal />}
-      {/* <>
-        <PreLoading stopPreloading={stopPreloading} />
+      {isOpen && <Modal />} */}
+
+      <>
+        {isPreloading && <PreLoading stopPreloading={stopPreloading} />}
         <GNB />
         <Main>{children}</Main>
         {isOpen && <Modal />}
-      </> */}
+      </>
     </>
   );
+}
+
+{
+  /* <PreLoading stopPreloading={stopPreloading} />
+      <>
+        <GNB />
+        <Main>{children}</Main>
+        {isOpen && <Modal />}
+      </> */
 }
