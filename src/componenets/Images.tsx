@@ -6,6 +6,7 @@ import useLoopImage from "../hooks/useLoopImage";
 
 import { ModalContext } from "../App";
 import imagePaths from "../constants/images";
+import Modal from "./Modal";
 
 const ImageContainer = styled.div`
   display: flex;
@@ -54,11 +55,13 @@ function Images() {
   const [isMouseInImage, setIsMouseInImage] = useState<boolean>(false);
   const { x: mousePosX, y: mousePosY } = useMouseFollow();
   const { modalOpen, selectImage } = useContext(ModalContext);
+  const { isOpen } = useContext(ModalContext);
 
-  const { stop } = useLoopImage(
+  const { stop, restart } = useLoopImage(
     () => setCurrentImage((prev) => (prev + 1) % imagePaths.length),
     intervalTime
   );
+
   return (
     <>
       <ImageContainer>
@@ -85,6 +88,7 @@ function Images() {
           click
         </MouseFollower>
       )}
+      {isOpen && <Modal restart={restart} />}
     </>
   );
 }

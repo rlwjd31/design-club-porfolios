@@ -5,11 +5,12 @@ import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
 import { useContext, useRef } from "react";
 import { ModalContext } from "../App";
+import { useNavigate } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-import ChevronRight from "../../public/assets/icons/chevron-right.svg?react";
-import { useNavigate } from "react-router-dom";
+import CloseSVG from "../../public/assets/icons/close.svg?react";
+import RightArrow from "../../public/assets/icons/right-arrow.svg?react";
 
 const ModalContainer = styled.div`
   position: absolute;
@@ -25,55 +26,77 @@ const ModalContainer = styled.div`
 `;
 
 const Card = styled.div`
-  border-radius: 20px;
+  position: relative;
+  padding: 5rem 3.75rem 2.75rem;
   background-color: white;
   opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  padding: 4.25rem;
 `;
 
-const Paragraph = styled.p`
-  font-size: ${commonStyle.fontSize.l};
+const ModalHeader = styled.h3`
+  font-size: ${commonStyle.fontSize.m};
+  font-weight: 600;
+  text-align: center;
 `;
 
 const Image = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 21rem;
-  margin-top: 3.875rem;
   max-width: 34.125rem;
 `;
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-content: center;
   position: relative;
-  margin-top: 6rem;
-  padding: 0.75rem 6.75rem;
-  font-size: ${commonStyle.fontSize.m};
-  border-radius: 30px;
+  padding: 1.75rem 0;
+  margin-top: 2.25rem;
+  font-size: ${commonStyle.fontSize.s};
   cursor: pointer;
+  min-width: 20.75rem;
+  min-height: 5rem;
+  background-color: black;
+  color: white;
 `;
 
 const Span = styled.span`
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  font-size: ${commonStyle.fontSize.s};
-  transform: translateY(-50%);
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: #747474;
+  margin-top: 1.4rem;
 `;
 
-const ChevronRightIcon = styled(ChevronRight)`
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 `;
 
-export default function Modal() {
+const RigtArrowIcon = styled(RightArrow)`
+  margin-left: 1.5rem;
+  width: 1.5rem;
+  transform: translateY(1px);
+`;
+
+const CloseIcon = styled(CloseSVG)`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+`;
+
+type Props = {
+  restart: () => void;
+};
+
+export default function Modal({ restart }: Props) {
   const { imagePath } = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -97,12 +120,21 @@ export default function Modal() {
   return (
     <ModalContainer ref={modalRef}>
       <Card>
-        <Paragraph>알을 선택하셨습니다!</Paragraph>
+        <CloseIcon
+          onClick={() => {
+            modalClose();
+            restart();
+          }}
+        />
         <Image src={imagePath} />
-        <Button onClick={showFortunePage}>
-          결과 확인하러 가기
-          <ChevronRightIcon />
-        </Button>
+        <ContentContainer>
+          <ModalHeader>알을 선택하셨습니다!</ModalHeader>
+          <Span>결과 확인하기를 통해 오늘의 운세를 확인해보세요</Span>
+          <Button onClick={showFortunePage}>
+            결과 확인하러 가기
+            <RigtArrowIcon />
+          </Button>
+        </ContentContainer>
       </Card>
     </ModalContainer>
   );

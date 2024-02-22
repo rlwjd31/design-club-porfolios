@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useLoopImage(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,12 +24,13 @@ export default function useLoopImage(
   };
 
   const stop = () => cancelAnimationFrame(requestAnimationFrameId.current);
+  const restart = () => requestAnimationFrame(loopImages);
 
   useEffect(() => {
     requestAnimationFrameId.current = requestAnimationFrame(loopImages);
 
-    return () => cancelAnimationFrame(requestAnimationFrameId.current);
+    return () => stop();
   }, []);
 
-  return { stop };
+  return { stop, restart };
 }
