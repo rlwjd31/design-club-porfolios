@@ -24,11 +24,11 @@ export default function Layout({ children }: Props) {
   const [isPreloading, setIsPreloading] = useState<boolean>(true);
   const { isOpen } = useContext(ModalContext);
 
-
   const stopPreloading = () => setIsPreloading(false);
 
   return (
     <>
+      {/* <PreLoading stopPreloading={stopPreloading} /> */}
       {isPreloading ? (
         <PreLoading stopPreloading={stopPreloading} />
       ) : (
@@ -38,6 +38,12 @@ export default function Layout({ children }: Props) {
         </>
       )}
       {isOpen && <Modal />}
+      {/* <>
+        <PreLoading stopPreloading={stopPreloading} />
+        <GNB />
+        <Main>{children}</Main>
+        {isOpen && <Modal />}
+      </> */}
     </>
   );
 }
