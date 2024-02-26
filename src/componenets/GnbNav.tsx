@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import ChevronLeft from "../../public/assets/icons/chevron-left.svg?react";
 import { commonStyle } from "../styles/GlobalStyle";
 import { Link } from "react-router-dom";
 
@@ -11,13 +10,14 @@ const Container = styled.nav`
   left: 0;
   padding: ${commonStyle.padding.main};
   align-items: center;
-  z-index: 100;
+  z-index: 1;
 `;
 
 const HomeButton = styled(Link)`
   font-size: ${commonStyle.fontSize.x};
   text-transform: uppercase;
   text-decoration: none;
+  cursor: pointer;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -29,19 +29,9 @@ const HomeButton = styled(Link)`
   }
 `;
 
-const BackNav = styled(Link)`
-  display: flex;
-  align-items: center;
-  background-color: white;
-  display: flex;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: black;
-`;
-
 export default function GnbNav() {
   return (
-    <Container lang="en">
+    <Container lang="en" className="navbar">
       <HomeButton to="/">FORTUNE EGG</HomeButton>
     </Container>
   );

@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import image340 from "/assets/images/detail340.png";
 import image650 from "/assets/images/detail650.png";
 import testVideo from "/assets/videos/sample-video.mp4";
 import { commonStyle } from "../styles/GlobalStyle";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 
 type ImageProps = {
   width?: string;
@@ -16,34 +20,62 @@ type ColumnProps = {
   backgroundColor?: string;
 };
 
-type RowProps = {
-  backgroundColor?: string;
-};
-
 type SectionProps = {
   flexDirection?: string;
   justifyContent?: string;
   alignItems?: string;
+  gap?: string | number;
+  backgroundColor?: string;
+};
+
+type H1Props = {
+  textAlign?: string;
+  color?: string;
 };
 
 type H4Props = {
   padding?: string;
   borderBottom?: string;
+  fontSize?: string;
 };
 
-// const Section = styled.section`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
+const Main = styled.main`
+  width: 100%;
+  padding: 3.125rem;
+
+  // ! scroll with snap setting */
+  height: 100vh;
+
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 4rem;
+`;
+
 const Section = styled.section<SectionProps>`
   width: 100%;
   display: flex;
+  background-color: ${(props) => props.backgroundColor ?? "none"};
   flex-direction: ${(props) => props.flexDirection ?? "row"};
   justify-content: ${(props) => props.justifyContent ?? "center"};
-  align-items: ${(props) => props.justifyContent ?? "center"};
+  align-items: ${(props) => props.alignItems ?? "center"};
+  gap: ${(props) => props.gap ?? "0px"};
+  height: 100vh;
+  max-height: 100vh;
+
+  /* ! scroll with snap setting */
+  scroll-snap-align: center;
+  margin-top: 10rem;
+  &:first-child {
+    margin-top: 1rem;
+  }
+`;
+
+const LogoContainer = styled.div`
+  width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img<ImageProps>`
@@ -53,37 +85,54 @@ const Image = styled.img<ImageProps>`
 `;
 
 const SmallImage = styled(Image)`
-  max-width: 21.25rem;
-  margin-top: calc(${commonStyle.padding.main} + 14rem);
+  max-width: 17rem;
+`;
+
+const MainImage = styled(Image)`
+  max-width: 40rem;
 `;
 
 const VideoWrapper = styled.div`
-  margin-top: -35%;
-  padding-top: 56.25%;
   width: 100%;
 `;
 
-const H2 = styled.h2`
+const H1 = styled.h1<H1Props>`
+  color: ${(props) => props.color ?? "black"};
   font-size: ${commonStyle.fontSize.xxxl};
+  text-align: ${(props) => props.textAlign ?? "start"};
   width: 100%;
-  margin-top: 17rem;
-  margin-bottom: 3.5rem;
-  /* max-width: 48rem; */
+  padding: 6rem;
+  padding-left: 0;
+
+  &:lang(en) {
+    font-family: "Neue Haas Grotesk Display Pro";
+  }
+`;
+
+const H2 = styled.h2`
+  font-size: 3.5rem;
+  margin-top: 2.75rem;
+  max-width: 31.4rem;
+  width: 100%;
+  text-align: start;
+  line-height: 1.3;
+  font-weight: 600;
+
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
   }
 `;
 
 const H3 = styled.h3`
-  font-size: ${commonStyle.fontSize.xl};
-  max-width: 35.9rem;
-  line-height: 1.4;
+  font-size: 36px;
+  font-weight: 600;
+  padding: 2rem 0;
+  border-bottom: 1.5px solid black;
+  width: 100%;
 `;
 
 const H4 = styled.h4<H4Props>`
-  font-size: ${commonStyle.fontSize.x};
-  border-bottom: ${(props) => props.borderBottom ?? "inherit"};
-  padding: ${(props) => props.padding ?? "0"};
+  font-size: ${(props) => props.fontSize ?? "1.5rem"};
   font-weight: 600;
   width: 100%;
 
@@ -92,91 +141,130 @@ const H4 = styled.h4<H4Props>`
   }
 `;
 
-const ArticleContainer = styled.article`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`;
-
 const Column = styled.div<ColumnProps>`
+  background-color: ${(props) => props.backgroundColor ?? "white"};
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: ${(props) => props.padding ?? "0"};
-  background-color: ${(props) => props.backgroundColor ?? "inherit"};
+  height: 100%;
+  padding: 3.75rem;
 `;
 
-const Row = styled.div<RowProps>`
-  width: 100%;
-  height: 50%;
-  padding: 3.75rem;
-  display: flex;
-  flex-direction: column;
+const Row = styled(Column)`
+  justify-content: flex-start;
   align-items: flex-start;
-  background-color: ${(props) => props.backgroundColor ?? "inherit"};
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+  gap: 1.25rem;
+`;
+
+const Button = styled.button`
+  border: 2px solid black;
+  padding: 0.8rem 1.6rem;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 2.75rem;
+  font-weight: 600;
 `;
 
 const Ul = styled.ul`
   display: flex;
-  justify-content: flex-start;
-  gap: 1.25rem;
-  margin-top: 2.8rem;
-
-  & > li {
-    padding: 20px 30px;
-    border: 2px solid black;
-    border-radius: 30px;
-    font-size: 24px;
-    font-weight: 500;
-  }
-`;
-
-const DescriptionRow = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  text-transform: uppercase;
-  font-size: 22px;
-  font-weight: 600;
-`;
-
-const DL = styled.dl`
-  width: 100%;
-  display: flex;
   flex-direction: column;
-  gap: 3.25rem;
-  text-align: start;
-  & dt {
-    color: rgba(0, 0, 0, 0.5);
-    flex: 1;
-    &:lang(en) {
-      font-family: "Neue Haas Grotesk Display Pro";
-    }
-  }
-
-  & dd {
-    flex: 4;
-    font-weight: 400;
-  }
+  align-items: flex-start;
+  margin-top: 1.25rem;
 `;
 
-const Footer = styled.footer`
-  font-size: ${commonStyle.fontSize.m};
+const Li = styled.li`
+  display: flex;
+  align-items: flex-start;
+  padding: 1.375rem 0;
+  width: 100%;
+`;
+
+const Label = styled.label`
   font-weight: 600;
-  text-transform: uppercase;
-  padding: 7rem 0 3rem 0;
-  padding-top: 7rem;
-  pad &:lang(en) {
+  font-size: 22px;
+  flex-basis: 20%;
+  line-height: 1.6;
+
+  &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
   }
 `;
 
+const Paragraph = styled.p`
+  font-size: 20px;
+  font-weight: 400;
+  flex-basis: 80%;
+  line-height: 1.6;
+`;
+
 export default function Fortune() {
   return (
-    <>
-      <Section flexDirection="column" alignItems="center">
-        <SmallImage src={image340} />
+    <Main>
+      <Section flexDirection="column" justifyContent="space-between">
+        <H1 lang="en">
+          <span>
+            (TODAY ’S <br />
+            DAILY FORTUNE
+          </span>
+          )
+        </H1>
+        <LogoContainer>
+          <SmallImage src={image340} />
+        </LogoContainer>
+      </Section>
+      <Section>
+        <Column backgroundColor="#f7f7f7">
+          <MainImage src={image650} />
+        </Column>
+        <Column>
+          <Row>
+            <H4 lang="en">TODAY ’S BROKEN EGG</H4>
+            <H2>가정과 일의 경계에서 균형을 유지하라</H2>
+            <ButtonContainer>
+              <Button>경계</Button>
+              <Button>가정</Button>
+              <Button>균형</Button>
+            </ButtonContainer>
+          </Row>
+          <Row>
+            <H3>비지맨</H3>
+            <Ul>
+              <Li>
+                <Label lang="en" htmlFor="type">
+                  TYPE
+                </Label>
+                <Paragraph>워커홀릭</Paragraph>
+              </Li>
+              <Li>
+                <Label lang="en" htmlFor="favorite">
+                  FAVORITE
+                </Label>
+                <Paragraph>일하기</Paragraph>
+              </Li>
+              <Li>
+                <Label lang="en" htmlFor="feature">
+                  FEATURE
+                </Label>
+                <Paragraph>
+                  일을 대신 해주는 아이. 나의 일을 가지고 가서 후딱 처리해
+                  버린다. 해야하는 벅찬 일들이 줄어들어 가정에 집중할 수 있게
+                  됨.
+                </Paragraph>
+              </Li>
+            </Ul>
+          </Row>
+        </Column>
+      </Section>
+      <Section>
         <VideoWrapper>
           <ReactPlayer
             width="100%"
@@ -189,58 +277,13 @@ export default function Fortune() {
           />
         </VideoWrapper>
       </Section>
-      <Section flexDirection="column">
-        <H2 lang="en">
-          <p>(TODAY ’S</p> <span>DAILY FORTUNE</span>)
-        </H2>
-        <ArticleContainer>
-          <Column backgroundColor="#F7F7F7" padding="15.88rem 7.75rem">
-            <Image width="40.63rem" height="40.63rem" src={image650} />
-          </Column>
-          <Column>
-            <Row>
-              <H3>가정과 일의 경계에서 균형을 유지하라</H3>
-              <Ul>
-                <li>경계</li>
-                <li>균형</li>
-                <li>가정</li>
-              </Ul>
-            </Row>
-            <Row backgroundColor="#EAEAEA">
-              <H4 lang="en" borderBottom="2px solid black" padding="0 0 2rem 0">
-                TODAY ’S BROKEN EGG
-              </H4>
-              <Column>
-                <H4 padding="2.75rem 0 4.25rem 0">비지맨</H4>
-                <DL>
-                  <DescriptionRow>
-                    <dt lang="en">type</dt>
-                    <dd>워커홀릭</dd>
-                  </DescriptionRow>
-                  <DescriptionRow>
-                    <dt lang="en">Favorite</dt>
-                    <dd>일하기</dd>
-                  </DescriptionRow>
-                  <DescriptionRow>
-                    <dt lang="en">Feature</dt>
-                    <dd>
-                      <p>
-                        일을 대신 해주는 아이. 나의 일을 가지고 가서 후딱 처리해
-                        버린다.
-                      </p>
-                      <br />
-                      <p>
-                        해야하는 벅찬 일들이 줄어들어 가정에 집중할 수 있게 됨.
-                      </p>
-                    </dd>
-                  </DescriptionRow>
-                </DL>
-              </Column>
-            </Row>
-          </Column>
-        </ArticleContainer>
+      <Section backgroundColor="black">
+        <H1 lang="en" color="white" textAlign="center">
+          TAKE A PAPER FORTUNE
+        </H1>
       </Section>
-      <Footer lang="en">take a paper fortune</Footer>
-    </>
+    </Main>
   );
 }
+
+// https://webdevpuneet.com/horizontal-snapping-sections-simple-scrolltrigger/#gsc.tab=0
