@@ -42,12 +42,6 @@ const ModalHeader = styled.h3`
   text-align: center;
 `;
 
-const Image = styled.img`
-  object-fit: cover;
-  width: 100%;
-  max-width: 34.125rem;
-`;
-
 const Button = styled.button`
   display: flex;
   justify-content: center;
@@ -97,7 +91,7 @@ type Props = {
 };
 
 export default function Modal({ restart }: Props) {
-  const { imagePath } = useContext(ModalContext);
+  const { fortune } = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { modalClose } = useContext(ModalContext);
@@ -117,6 +111,8 @@ export default function Modal({ restart }: Props) {
     modalClose();
   };
 
+  const CrackedSvg = fortune.cracked;
+
   return (
     <ModalContainer ref={modalRef}>
       <Card>
@@ -126,7 +122,7 @@ export default function Modal({ restart }: Props) {
             restart();
           }}
         />
-        <Image src={imagePath} />
+        <CrackedSvg />
         <ContentContainer>
           <ModalHeader>알을 선택하셨습니다!</ModalHeader>
           <Span>결과 확인하기를 통해 오늘의 운세를 확인해보세요</Span>

@@ -18,14 +18,6 @@ const ImageContainer = styled.div`
   transform: translateY(-4rem);
 `;
 
-const Image = styled.img`
-  object-fit: cover;
-  width: 100%;
-  min-width: 37.5rem;
-  height: 46.875rem;
-  cursor: pointer;
-`;
-
 const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
   will-change: transform;
   position: absolute;
@@ -47,6 +39,11 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
   }
 `;
 
+const SVGContainer = styled.div`
+  width: 100%;
+  cursor: pointer;
+`;
+
 const intervalTime = 100;
 const mouseFollowerOffset = { x: 15, y: 15 };
 
@@ -54,30 +51,31 @@ function Images() {
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [isMouseInImage, setIsMouseInImage] = useState<boolean>(false);
   const { x: mousePosX, y: mousePosY } = useMouseFollow();
-  const { modalOpen, selectImage } = useContext(ModalContext);
+  const { modalOpen, selectImage, fortune } = useContext(ModalContext);
   const { isOpen } = useContext(ModalContext);
 
   const { stop, restart } = useLoopImage(
-    () => setCurrentImage((prev) => (prev + 1) % imagePaths.length),
+    () => setCurrentImage((prev) => (prev + 1) % imagePaths.origin.length),
     intervalTime
   );
+
+  const SVGFortune = imagePaths.origin[currentImage];
 
   return (
     <>
       <ImageContainer>
-        <div
+        <SVGContainer
           onMouseEnter={() => setIsMouseInImage(true)}
           onMouseLeave={() => setIsMouseInImage(false)}
+          // ! mouse가 up되기 전에 svg가 바뀌어 onclick => onmousedown event로 바꿈
+          onMouseDown={() => {
+            stop();
+            modalOpen();
+            selectImage(currentImage);
+          }}
         >
-          <Image
-            onClick={() => {
-              stop();
-              modalOpen();
-              selectImage(imagePaths[currentImage]);
-            }}
-            src={imagePaths[currentImage]}
-          />
-        </div>
+          <SVGFortune width="100%" height="auto" title="" />
+        </SVGContainer>
       </ImageContainer>
       {isMouseInImage && (
         <MouseFollower

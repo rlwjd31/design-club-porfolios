@@ -2,48 +2,55 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { RouterProvider } from "react-router-dom";
 import browserRouter from "./routes";
 import "./App.css";
-import {
-  Dispatch,
-  FC,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from "react";
+import { FC, ReactNode, createContext, useState } from "react";
+import imagePaths, { SVGType } from "./constants/images";
 
 type Props = {
   children: ReactNode;
+};
+
+type FortuneType = {
+  origin: SVGType;
+  cracked: SVGType;
 };
 
 type ModalContextType = {
   isOpen: boolean;
   modalOpen: () => void;
   modalClose: () => void;
-  imagePath: string;
-  selectImage: (
-    imagePath: string
-  ) => ReturnType<Dispatch<SetStateAction<string>>>;
+  selectImage: (imagePath: number) => void;
+  fortune: FortuneType;
+};
+
+const initialFortune = {
+  origin: imagePaths.origin[0],
+  cracked: imagePaths.cracked[0],
 };
 
 export const ModalContext = createContext<ModalContextType>({
+  fortune: initialFortune,
   isOpen: false,
   modalClose: () => {},
   modalOpen: () => {},
-  imagePath: "",
-  selectImage: (imagePath: string) => "",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  selectImage: (imagePath) => {},
 });
 
 export const ModalContextProvider: FC<Props> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [imagePath, setImagePath] = useState<string>("");
+  const [fortune, setFortune] = useState<FortuneType>(initialFortune);
 
   const modalOpen = () => setIsOpen(true);
   const modalClose = () => setIsOpen(false);
-  const selectImage = (imagePath: string) => setImagePath(imagePath);
+  const selectImage = (currentIndex: number) =>
+    setFortune({
+      origin: imagePaths.origin[currentIndex],
+      cracked: imagePaths.cracked[currentIndex],
+    });
 
   return (
     <ModalContext.Provider
-      value={{ isOpen, modalOpen, modalClose, imagePath, selectImage }}
+      value={{ isOpen, modalOpen, modalClose, fortune, selectImage }}
     >
       {children}
     </ModalContext.Provider>
