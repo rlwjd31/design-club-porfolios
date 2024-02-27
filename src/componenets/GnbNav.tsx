@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { commonStyle } from "../styles/GlobalStyle";
-import { Link } from "react-router-dom";
+import HeaderLogoSVG from "../../public/assets/icons/header-logo.svg?react";
 
 const Container = styled.nav`
   width: 100%;
@@ -14,10 +15,19 @@ const Container = styled.nav`
 `;
 
 const HomeButton = styled(Link)`
-  font-size: ${commonStyle.fontSize.x};
+  /* font-size: calc(${commonStyle.fontSize.x} + 2.5px); */
+  font-size: 40px;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
+  mix-blend-mode: difference;
+  /* -webkit-text-stroke: 2px white; */
+  will-change: transform;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-fill-color: white;
+
+  /* background-color: white; */
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -32,7 +42,9 @@ const HomeButton = styled(Link)`
 export default function GnbNav() {
   return (
     <Container lang="en" className="navbar">
-      <HomeButton to="/">FORTUNE EGG</HomeButton>
+      <HomeButton to="/">
+        <HeaderLogoSVG style={{ width: "17rem" }} />
+      </HomeButton>
     </Container>
   );
 }

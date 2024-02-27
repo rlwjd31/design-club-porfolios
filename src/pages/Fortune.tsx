@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import ReactPlayer from "react-player";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import image340 from "/assets/images/detail340.png";
 import image650 from "/assets/images/detail650.png";
 import testVideo from "/assets/videos/sample-video.mp4";
 import { commonStyle } from "../styles/GlobalStyle";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 
 type ImageProps = {
   width?: string;
@@ -31,6 +27,7 @@ type SectionProps = {
 type H1Props = {
   textAlign?: string;
   color?: string;
+  paddingLeft?: string;
 };
 
 type H4Props = {
@@ -60,13 +57,14 @@ const Section = styled.section<SectionProps>`
   align-items: ${(props) => props.alignItems ?? "center"};
   gap: ${(props) => props.gap ?? "0px"};
   height: 100vh;
-  max-height: 100vh;
+  max-height: 95vh;
 
   /* ! scroll with snap setting */
-  scroll-snap-align: center;
-  margin-top: 10rem;
-  &:first-child {
-    margin-top: 1rem;
+  scroll-snap-align: start;
+
+  &:last-child {
+    width: 100vw;
+    transform: translateX(-${commonStyle.padding.main});
   }
 `;
 
@@ -86,6 +84,8 @@ const Image = styled.img<ImageProps>`
 
 const SmallImage = styled(Image)`
   max-width: 17rem;
+  position: relative;
+  top: -100px;
 `;
 
 const MainImage = styled(Image)`
@@ -101,8 +101,8 @@ const H1 = styled.h1<H1Props>`
   font-size: ${commonStyle.fontSize.xxxl};
   text-align: ${(props) => props.textAlign ?? "start"};
   width: 100%;
-  padding: 6rem;
-  padding-left: 0;
+  padding: 4rem;
+  padding-left: ${(props) => props.paddingLeft ?? "4rem"};
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -210,7 +210,7 @@ export default function Fortune() {
   return (
     <Main>
       <Section flexDirection="column" justifyContent="space-between">
-        <H1 lang="en">
+        <H1 lang="en" paddingLeft="0">
           <span>
             (TODAY ’S <br />
             DAILY FORTUNE
@@ -285,5 +285,3 @@ export default function Fortune() {
     </Main>
   );
 }
-
-// https://webdevpuneet.com/horizontal-snapping-sections-simple-scrolltrigger/#gsc.tab=0
