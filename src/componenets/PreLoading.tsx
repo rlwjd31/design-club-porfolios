@@ -57,7 +57,6 @@ export default function PreLoading({ stopPreloading }: Props) {
     () => {
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log("animation completed!!");
           stopPreloading();
           containerRef.current!.style.visibility = "hidden";
         },

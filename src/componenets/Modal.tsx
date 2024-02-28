@@ -95,6 +95,7 @@ export default function Modal({ restart }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { modalClose } = useContext(ModalContext);
+
   useGSAP(
     () => {
       gsap.fromTo(

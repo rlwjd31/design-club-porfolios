@@ -67,14 +67,19 @@ function Images() {
         <SVGContainer
           onMouseEnter={() => setIsMouseInImage(true)}
           onMouseLeave={() => setIsMouseInImage(false)}
-          // ! mouse가 up되기 전에 svg가 바뀌어 onclick => onmousedown event로 바꿈
-          onMouseDown={() => {
-            stop();
-            modalOpen();
-            selectImage(currentImage);
-          }}
         >
-          <SVGFortune width="100%" height="auto" title="" />
+          <SVGFortune
+            // ! mouse가 up되기 전에 svg가 바뀌어 onclick => onmousedown event로 바꿈
+            onMouseDown={() => {
+              stop();
+              modalOpen();
+              selectImage(currentImage);
+              console.log("currentIamge", currentImage);
+            }}
+            width="100%"
+            height="auto"
+            title=""
+          />
         </SVGContainer>
       </ImageContainer>
       {isMouseInImage && (
