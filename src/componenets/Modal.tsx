@@ -108,7 +108,7 @@ export default function Modal({ restart }: Props) {
   );
 
   const showFortunePage = () => {
-    navigate("/fortune/asdf");
+    navigate(`/fortune/${fortune.fortuneId}`);
     modalClose();
   };
 

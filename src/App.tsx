@@ -12,6 +12,7 @@ type Props = {
 type FortuneType = {
   origin: SVGType;
   cracked: SVGType;
+  fortuneId: number;
 };
 
 type ModalContextType = {
@@ -25,6 +26,7 @@ type ModalContextType = {
 const initialFortune = {
   origin: imagePaths.origin[0],
   cracked: imagePaths.cracked[0],
+  fortuneId: 0
 };
 
 export const ModalContext = createContext<ModalContextType>({
@@ -46,6 +48,7 @@ export const ModalContextProvider: FC<Props> = ({ children }) => {
     setFortune({
       origin: imagePaths.origin[currentIndex],
       cracked: imagePaths.cracked[currentIndex],
+      fortuneId: currentIndex
     });
 
   return (

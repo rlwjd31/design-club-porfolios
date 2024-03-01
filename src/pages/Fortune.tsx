@@ -5,6 +5,8 @@ import image340 from "/assets/images/detail340.png";
 import image650 from "/assets/images/detail650.png";
 import testVideo from "/assets/videos/sample-video.mp4";
 import { commonStyle } from "../styles/GlobalStyle";
+import { useParams } from "react-router-dom";
+import fortuneContents from "../constants/fortuneContent";
 
 type ImageProps = {
   width?: string;
@@ -206,7 +208,26 @@ const Paragraph = styled.p`
   line-height: 1.6;
 `;
 
+type ParamType = {
+  fortuneId: string;
+};
+
 export default function Fortune() {
+  const { fortuneId: id } = useParams<ParamType>();
+  const fortuneId = parseInt(id ?? "0");
+
+  const {
+    bigImage,
+    smallImage,
+    categories,
+    favorite,
+    feature,
+    name,
+    title,
+    type,
+    video,
+  } = fortuneContents[fortuneId];
+
   return (
     <Main>
       <Section flexDirection="column" justifyContent="space-between">
@@ -218,53 +239,58 @@ export default function Fortune() {
           )
         </H1>
         <LogoContainer>
-          <SmallImage src={image340} />
+          {/* ! smallImage */}
+          <SmallImage src={smallImage} />
         </LogoContainer>
       </Section>
       <Section>
         <Column backgroundColor="#f7f7f7">
-          <MainImage src={image650} />
+          {/* bitImage */}
+          <MainImage src={bigImage} />
         </Column>
         <Column>
           <Row>
             <H4 lang="en">TODAY ’S BROKEN EGG</H4>
-            <H2>가정과 일의 경계에서 균형을 유지하라</H2>
+            {/* ! title */}
+            <H2>{title}</H2>
             <ButtonContainer>
-              <Button>경계</Button>
-              <Button>가정</Button>
-              <Button>균형</Button>
+              {/* categories */}
+              {categories.map((category) => (
+                <Button>{category}</Button>
+              ))}
             </ButtonContainer>
           </Row>
           <Row>
-            <H3>비지맨</H3>
+            {/* name */}
+            <H3>{name}</H3>
             <Ul>
               <Li>
+                {/* type */}
                 <Label lang="en" htmlFor="type">
                   TYPE
                 </Label>
-                <Paragraph>워커홀릭</Paragraph>
+                <Paragraph>{type}</Paragraph>
               </Li>
               <Li>
+                {/* favorite */}
                 <Label lang="en" htmlFor="favorite">
                   FAVORITE
                 </Label>
-                <Paragraph>일하기</Paragraph>
+                <Paragraph>{favorite}</Paragraph>
               </Li>
               <Li>
+                {/* feature */}
                 <Label lang="en" htmlFor="feature">
                   FEATURE
                 </Label>
-                <Paragraph>
-                  일을 대신 해주는 아이. 나의 일을 가지고 가서 후딱 처리해
-                  버린다. 해야하는 벅찬 일들이 줄어들어 가정에 집중할 수 있게
-                  됨.
-                </Paragraph>
+                <Paragraph>{feature}</Paragraph>
               </Li>
             </Ul>
           </Row>
         </Column>
       </Section>
       <Section>
+        {/* video */}
         <VideoWrapper>
           <ReactPlayer
             width="100%"
@@ -272,7 +298,7 @@ export default function Fortune() {
             loop={true}
             playing={true}
             muted={true}
-            url={testVideo}
+            url={video}
             controls
           />
         </VideoWrapper>
