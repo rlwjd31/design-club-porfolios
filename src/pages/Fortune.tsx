@@ -305,7 +305,7 @@ export default function Fortune() {
       </Section>
       <Section backgroundColor="black">
         <H1 lang="en" color="white" textAlign="center">
-          TAKE A PAPER FORTUNE
+          TAKE A FORTUNE CAPSULE
         </H1>
       </Section>
     </Main>
