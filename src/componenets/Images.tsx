@@ -40,7 +40,7 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
 `;
 
 const SVGContainer = styled.div`
-  width: 100%;
+  width: 88rem;
   cursor: pointer;
 `;
 
@@ -74,7 +74,6 @@ function Images() {
               stop();
               modalOpen();
               selectImage(currentImage);
-              console.log("currentIamge", currentImage);
             }}
             width="100%"
             height="auto"
