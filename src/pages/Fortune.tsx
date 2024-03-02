@@ -131,7 +131,7 @@ const H3 = styled.h3`
   font-size: 36px;
   font-weight: 600;
   padding: 2rem 0;
-  border-bottom: 1.5px solid black;
+  border-bottom: 2px solid black;
   width: 100%;
 `;
 
@@ -177,6 +177,7 @@ const Button = styled.button`
   border-radius: 32px;
   margin-top: 2.75rem;
   font-weight: 600;
+  font-size: 24px;
 `;
 
 const Ul = styled.ul`
@@ -240,7 +241,6 @@ export default function Fortune() {
         {sentence} <br />
       </>
     ));
-  console.log();
 
   return (
     <Main>
