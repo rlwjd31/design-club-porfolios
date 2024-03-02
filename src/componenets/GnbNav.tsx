@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { commonStyle } from "../styles/GlobalStyle";
 import HeaderLogoSVG from "../../public/assets/icons/header-logo.svg?react";
+import ChevRonLeft from "../../public/assets/icons/chevron-left.svg?react";
 
 const Container = styled.nav`
   width: 100%;
@@ -15,19 +16,10 @@ const Container = styled.nav`
 `;
 
 const HomeButton = styled(Link)`
-  /* font-size: calc(${commonStyle.fontSize.x} + 2.5px); */
   font-size: 40px;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  mix-blend-mode: difference;
-  /* -webkit-text-stroke: 2px white; */
-  will-change: transform;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: black;
-  -webkit-text-fill-color: white;
-
-  /* background-color: white; */
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -39,12 +31,43 @@ const HomeButton = styled(Link)`
   }
 `;
 
+const H1 = styled.h1`
+  font-size: 56px;
+  font-weight: 600;
+  display: flex;
+  padding-bottom: 2.25rem;
+  border-bottom: 2px solid black;
+  &:lang(en) {
+    font-family: "Neue Haas Grotesk Display Pro";
+  }
+`;
+
+const NavigateBack = styled(ChevRonLeft)`
+  cursor: pointer;
+  width: 4rem;
+  height: 3rem;
+  stroke-width: 2rem;
+  transform: translateX(-40%);
+`;
+
 export default function GnbNav() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const onClickGoBack = () => navigate(-1);
+
   return (
     <Container lang="en" className="navbar">
-      <HomeButton to="/">
-        <HeaderLogoSVG style={{ width: "17rem" }} />
-      </HomeButton>
+      {pathname === "/about" && (
+        <H1 lang="en">
+          <NavigateBack onClick={onClickGoBack} /> About
+        </H1>
+      )}
+      {pathname === "/" && (
+        <HomeButton to="/">
+          <HeaderLogoSVG style={{ width: "17rem" }} />
+        </HomeButton>
+      )}
     </Container>
   );
 }

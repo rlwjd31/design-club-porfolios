@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 
-import image340 from "/assets/images/detail340.png";
-import image650 from "/assets/images/detail650.png";
-import testVideo from "/assets/videos/sample-video.mp4";
 import { commonStyle } from "../styles/GlobalStyle";
 import { useParams } from "react-router-dom";
 import fortuneContents from "../constants/fortuneContent";

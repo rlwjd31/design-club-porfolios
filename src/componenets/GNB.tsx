@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { commonStyle } from "../styles/GlobalStyle";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GnbNav from "./GnbNav";
 
 const MainPageHeader = styled.header`
@@ -19,6 +19,7 @@ const InfoHeader = styled(MainPageHeader)`
   left: ${commonStyle.padding.main};
   border-bottom: 4px solid black;
   padding-bottom: 5px;
+  cursor: pointer;
 `;
 
 const FortunePageHeader = styled(MainPageHeader)`
@@ -27,18 +28,19 @@ const FortunePageHeader = styled(MainPageHeader)`
 `;
 
 export default function GNB() {
-  // /fortune/:fortuneId
-  const { fortuneId } = useParams();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  if (pathname !== "/") {
-    return <GnbNav />;
+  if (pathname === "/") {
+    return (
+      <>
+        <InfoHeader onClick={() => navigate("/about")} lang="en">
+          Info
+        </InfoHeader>
+        <FortunePageHeader lang="en">FORTUNE EGG</FortunePageHeader>
+      </>
+    );
   }
 
-  return (
-    <>
-      <InfoHeader lang="en">Info</InfoHeader>
-      <FortunePageHeader lang="en">FORTUNE EGG</FortunePageHeader>
-    </>
-  );
+  return <GnbNav />;
 }
