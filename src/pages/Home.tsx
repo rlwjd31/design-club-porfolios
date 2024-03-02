@@ -5,7 +5,7 @@ import { commonStyle } from "../styles/GlobalStyle";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 88rem;
+  min-width: 75rem;
   height: 100%;
 `;
 
