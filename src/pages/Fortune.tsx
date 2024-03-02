@@ -114,11 +114,13 @@ const H1 = styled.h1<H1Props>`
 const H2 = styled.h2`
   font-size: 3.5rem;
   margin-top: 2.75rem;
-  max-width: 31.4rem;
+  /* max-width: 31.4rem; */
   width: 100%;
   text-align: start;
   line-height: 1.3;
   font-weight: 600;
+  word-break: keep-all;
+  white-space: pre-wrap;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -157,6 +159,7 @@ const Column = styled.div<ColumnProps>`
 const Row = styled(Column)`
   justify-content: flex-start;
   align-items: flex-start;
+  padding: 0;
 `;
 
 const ButtonContainer = styled.div`
@@ -171,7 +174,7 @@ const Button = styled.button`
   border: 2px solid black;
   padding: 0.8rem 1.6rem;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 32px;
   margin-top: 2.75rem;
   font-weight: 600;
 `;
@@ -193,7 +196,8 @@ const Li = styled.li`
 const Label = styled.label`
   font-weight: 600;
   font-size: 22px;
-  flex-basis: 20%;
+  width: 10rem;
+  margin-right: 2.8 rem;
   line-height: 1.6;
 
   &:lang(en) {
@@ -206,6 +210,7 @@ const Paragraph = styled.p`
   font-weight: 400;
   flex-basis: 80%;
   line-height: 1.6;
+  word-break: keep-all;
 `;
 
 type ParamType = {
@@ -227,6 +232,15 @@ export default function Fortune() {
     type,
     video,
   } = fortuneContents[fortuneId];
+
+  // ! 내가 원하는 대로 줄 개행하여 넣기
+  const injectLineBreak = (title: string) =>
+    title.split("\n").map((sentence) => (
+      <>
+        {sentence} <br />
+      </>
+    ));
+  console.log();
 
   return (
     <Main>
@@ -252,7 +266,7 @@ export default function Fortune() {
           <Row>
             <H4 lang="en">TODAY ’S BROKEN EGG</H4>
             {/* ! title */}
-            <H2>{title}</H2>
+            <H2>{injectLineBreak(title)}</H2>
             <ButtonContainer>
               {/* categories */}
               {categories.map((category) => (
@@ -283,7 +297,7 @@ export default function Fortune() {
                 <Label lang="en" htmlFor="feature">
                   FEATURE
                 </Label>
-                <Paragraph>{feature}</Paragraph>
+                <Paragraph>{injectLineBreak(feature)}</Paragraph>
               </Li>
             </Ul>
           </Row>
