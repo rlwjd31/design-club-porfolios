@@ -15,8 +15,8 @@ const H2 = styled.h2`
   font-size: 32px;
   text-transform: uppercase;
   padding: 2rem 0;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
@@ -79,7 +79,7 @@ const FortuneText = styled(HeaderLogoSVG)`
 
 export default function About() {
   const navigate = useNavigate();
-  
+
   return (
     <>
       <Main>

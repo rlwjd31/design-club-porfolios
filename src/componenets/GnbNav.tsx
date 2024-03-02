@@ -36,7 +36,7 @@ const H1 = styled.h1`
   font-weight: 600;
   display: flex;
   padding-bottom: 2.25rem;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
   }

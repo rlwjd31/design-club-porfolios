@@ -128,7 +128,7 @@ const H3 = styled.h3`
   font-size: 36px;
   font-weight: 600;
   padding: 2rem 0;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
   width: 100%;
 `;
 
@@ -168,7 +168,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  border: 2px solid black;
+  border: 3px solid black;
   padding: 0.8rem 1.6rem;
   background-color: white;
   border-radius: 32px;
