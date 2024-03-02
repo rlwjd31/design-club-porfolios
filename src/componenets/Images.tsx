@@ -13,7 +13,6 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 68.75rem;
   height: 100%;
   transform: translateY(-4rem);
 `;
@@ -40,7 +39,7 @@ const MouseFollower = styled.span<{ mousePosX: string; mousePosY: string }>`
 `;
 
 const SVGContainer = styled.div`
-  width: 88rem;
+  width: 100%;
   cursor: pointer;
 `;
 
