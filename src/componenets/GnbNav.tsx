@@ -54,6 +54,7 @@ export default function GnbNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  console.log("pathname", pathname);
   const onClickGoBack = () => navigate(-1);
 
   return (
@@ -63,7 +64,7 @@ export default function GnbNav() {
           <NavigateBack onClick={onClickGoBack} /> About
         </H1>
       )}
-      {pathname === "/" && (
+      {pathname.includes("/fortune") && (
         <HomeButton to="/">
           <HeaderLogoSVG style={{ width: "17rem" }} />
         </HomeButton>
