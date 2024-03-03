@@ -217,6 +217,7 @@ type ParamType = {
 
 export default function Fortune() {
   const { fortuneId: id } = useParams<ParamType>();
+  console.log(id);
   const fortuneId = parseInt(id ?? "0");
 
   const {
