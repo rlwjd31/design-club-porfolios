@@ -40,11 +40,10 @@ const Main = styled.main`
   padding: 3.125rem;
 
   // ! scroll with snap setting */
-  height: 100vh;
+  /* height: 900vh; */
 
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  scroll-padding-top: 4rem;
 `;
 
 const Section = styled.section<SectionProps>`
@@ -65,6 +64,11 @@ const Section = styled.section<SectionProps>`
     width: 100vw;
     transform: translateX(-${commonStyle.padding.main});
   }
+
+  /* &:nth-child(3) {
+    width: 100vw;
+    transform: translateX(-${commonStyle.padding.main});
+  } */
 `;
 
 const LogoContainer = styled.div`
@@ -102,6 +106,7 @@ const H1 = styled.h1<H1Props>`
   width: 100%;
   padding: 4rem;
   padding-left: ${(props) => props.paddingLeft ?? "4rem"};
+  padding-top: 6rem;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
