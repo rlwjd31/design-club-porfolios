@@ -106,7 +106,7 @@ const H1 = styled.h1<H1Props>`
   width: 100%;
   padding: 4rem;
   padding-left: ${(props) => props.paddingLeft ?? "4rem"};
-  padding-top: 6rem;
+  padding-top: 8rem;
 
   &:lang(en) {
     font-family: "Neue Haas Grotesk Display Pro";
