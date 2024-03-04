@@ -26,7 +26,7 @@ export default function Layout({ children }: Props) {
 
   return (
     <>
-      {/* {isPreloading && <PreLoading stopPreloading={stopPreloading} />} */}
+      {isPreloading && <PreLoading stopPreloading={stopPreloading} />}
       <GNB />
       <Main>{children}</Main>
     </>
