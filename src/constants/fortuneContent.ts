@@ -119,7 +119,7 @@ const fortuneContents: FortuneContent[] = [
     favorite: "치어리딩",
     feature:
       "자유롭고 제멋대로이지만 사랑스러움.\n치치에게 욕망을 주면, 나의 욕망은 사라지게 되고 내 욕망대로 치치가 행동함. 성공에 집중할 수 있게 욕망을 억제해줌.",
-    categories: ["인내력", "뛰어내리는 사람들", "가치"],
+    categories: ["성공", "방종", "사랑스러움"],
   },
   {
     bigImage: bigImages[8],
